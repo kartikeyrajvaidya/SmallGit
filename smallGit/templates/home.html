@@ -1,4 +1,33 @@
 {% extends "base.html" %}
   {% block content %}
-    <h1>Hey There</h1>
+  <div class="container">
+    <br><br>
+
+  <div style="color: #070707; font-family: Gill Sans; margin-left: 450px;">
+    <b><h1>Small Git</h1></b>
+  </div>
+  <br>
+  <br>
+<div style="font-size: 16px; margin-left: 200px;" class="col-md-10 font-family: Georgia;" >
+  <p>
+    This is a webapp for finding GitHub Profiles, Repositories.It remembers your Search History and
+  </p>
+  <p>
+    Gives you Suggetions based on your previous Searches.
+  </p>
+  <p>
+    All the APIs in the project are writtent using python Django-REST framework.
+  </p>
+  <p>
+    It Uses Bootstrap4 with jQuery on the frontend.
+  </p>
+  <p>
+    All APIs follow REST spec and are called from frontend via AJAX requests.
+  </p>
+  <br>
+  <p>
+    <a class="btn btn-primary" style="margin-left: 250px;" href="{% url 'codeSearchApp:codeSearchHome' %}">Try SmallGit</a>
+  </p>
+</div>
+</div>
   {% endblock %}
