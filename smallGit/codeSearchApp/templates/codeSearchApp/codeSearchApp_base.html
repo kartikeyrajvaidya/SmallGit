@@ -164,20 +164,35 @@
           if(flag==1){
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                  var res=JSON.parse(this.responseText);
-                  responseItems = res.items;
-                  console.log(res.items)
-                  if(res.total_count != 0){
-                    $('#results').removeAttr('hidden');
-                    present_index = 0;
-                    new_present_index = 0;
-                    $('#populate_data_next').trigger('click');
-                  }else{
-                    $('#no_results').removeAttr('hidden');
-                  }
 
+              var res=JSON.parse(this.responseText);
+              responseItems = res.items;
+              console.log(res.items)
+
+              if (this.readyState == 4 && this.status == 200) {
+
+                //Addind Data to searchHistory
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200) {
+
+
+                    }
+                };
+                var parm='search_category='+storedFilterValue + '&search_query=' + query + '&csrfmiddlewaretoken=' + '{{csrf_token}}';
+                xhttp.open("POST", "storesearch/", false);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(parm);
+
+                if(res.total_count != 0){
+                  $('#results').removeAttr('hidden');
+                  present_index = 0;
+                  new_present_index = 0;
+                  $('#populate_data_next').trigger('click');
+                }else{
+                  $('#no_results').removeAttr('hidden');
                 }
+
+              }
             };
 
             xhttp.open("GET", "search/"+storedFilterValue+'/'+query, false);

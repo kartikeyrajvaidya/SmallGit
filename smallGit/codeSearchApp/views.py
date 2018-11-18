@@ -7,10 +7,18 @@ import requests
 import json
 from rest_framework.response import Response
 from django.template.defaultfilters import slugify
+from .models import SearchHistory;
+from .serializers import SearchHistorySerializer
+from rest_framework import generics
 
 
 class HomePage(LoginRequiredMixin,TemplateView):
     template_name = 'codeSearchApp/codeSearchApp_home.html'
+
+
+class SearchHistoryList(generics.ListCreateAPIView):
+    queryset = SearchHistory.objects.all()
+    serializer_class = SearchHistorySerializer
 
 
 @permission_classes([IsAuthenticated])
