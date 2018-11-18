@@ -12,6 +12,181 @@
   }
 
 </style>
+<script>
+      $(document).ready(function(){
+        var present_index = 0;
+        var new_present_index = 0;
+        var responseItems = [];
+
+
+
+        var storedFilterValue = sessionStorage.getItem('dropdownselected') || 'repositories';
+        document.getElementById("dropdown_text").innerHTML = storedFilterValue;
+
+
+        $(".dropdown-item").click(function(){
+                var text = $(this).text();
+                sessionStorage.setItem('dropdownselected', text );
+                location.reload();
+            });
+        $("#populate_data_previous,#populate_data_next").click(function(){
+          $('#accordion').remove();
+            var button_value = $(this).attr('value');
+            if(button_value == 'next'){
+              console.log("next")
+              console.log(responseItems.length)
+              new_present_index = 0;
+              if(present_index + 10 < responseItems.length){
+                new_present_index = present_index + 10;
+              }else{
+                new_present_index = responseItems.length;
+              }
+              $('#cover_accordion').append('<div id="accordion"></div>');
+              if(storedFilterValue === 'users'){
+                for(var index = present_index; index< new_present_index; index++){
+                  var collapse_href = 'href="#collapse'+index+'"';
+                  var login_name = responseItems[index].login;
+                  var data_for_accordion =
+                  '<div class="card">'
+                  +'<div class="card-header">'
+                  +'<div class="row">'
+                  +'<div class="col-md-12">'
+                  +'<div class="col-md-8 ">'
+                  +'<h4 class="card-title">'
+                  +'<a data-toggle="collapse"'+collapse_href+'>'
+                  +'<img src="'+responseItems[index].avatar_url+'" alt="Smiley face" height="50" width="50">&nbsp&nbsp&nbsp'
+                  +'<strong>'+login_name+'</strong></a></h4></div>'
+                  +'</a></h4></div></div></div>'
+                  +'<div id="collapse'+index+'" class="collapse" data-parent="#accordion">'
+                  +'<div class="card-body">'
+                  +'<button class="btn btn-sm addsubtask" id="{{todo.id}}" data-toggle="modal" data-target="#add_sub_task_modal">Add Sub-tasks</button>'
+                  +'</div>'
+                  +'<div class="card-footer" align="end"></div>'
+                  +'</div></div><br><br>'
+                  $('#accordion').append(data_for_accordion);
+                }
+            }else if(storedFilterValue === 'repositories'){
+              for(var index = present_index; index< new_present_index; index++){
+                var collapse_href = 'href="#collapse'+index+'"';
+                var repositiry_name = responseItems[index].name;
+                var data_for_accordion =
+                '<div class="card">'
+                +'<div class="card-header">'
+                +'<div class="row">'
+                +'<div class="col-md-12">'
+                +'<div class="col-md-8 ">'
+                +'<h4 class="card-title">'
+                +'<a data-toggle="collapse"'+collapse_href+'>'
+                +'<strong>'+repositiry_name+'</strong></a></h4></div>'
+                +'</a></h4></div></div></div>'
+                +'<div id="collapse'+index+'" class="collapse" data-parent="#accordion">'
+                +'<div class="card-body">'
+                +'<button class="btn btn-sm addsubtask" id="{{todo.id}}" data-toggle="modal" data-target="#add_sub_task_modal">Add Sub-tasks</button>'
+                +'</div>'
+                +'<div class="card-footer" align="end"></div>'
+                +'</div></div><br><br>'
+                $('#accordion').append(data_for_accordion);
+              }
+            }
+            console.log(data_for_accordion);
+            present_index = new_present_index -1;
+            console.log(present_index)
+            }else{
+              console.log("previous")
+              new_present_index = 0;
+              if(present_index-10 < 0){
+              new_present_index = 0;
+              }else{
+                new_present_index = present_index-10;
+              }
+              $('#cover_accordion').append('<div id="accordion"></div>');
+              if(storedFilterValue === 'users'){
+                for(var index = present_index; index> new_present_index; index--){
+                  var collapse_href = 'href="#collapse'+index+'"';
+                  var login_name = responseItems[index].login;
+                  var data_for_accordion =
+                  '<div class="card">'
+                  +'<div class="card-heading">'
+                  +'<div class="row">'
+                  +'<div class="col-md-12">'
+                  +'<div class="col-md-8 panel2">'
+                  +'<h4 class="card-title">'
+                  +'<a data-toggle="collapse"'+collapse_href+'>'
+                  +'<img src="'+responseItems[index].avatar_url+'" alt="Smiley face" height="50" width="50">&nbsp&nbsp&nbsp'
+                  +'<strong>'+login_name+'</strong></a></h4></div>'
+                  +'</a></h4></div></div></div>'
+                  +'<div id="collapse'+index+'" class="collapse" data-parent="#accordion">'
+                  +'<div class="card-body">'
+                  +'<button class="btn btn-primary addsubtask" id="{{todo.id}}" data-toggle="modal" data-target="#add_sub_task_modal">Add Sub-tasks</button>'
+                  +'</div>'
+                  +'<div class="card-footer" align="end"></div>'
+                  +'</div></div><br><br>'
+                  $('#accordion').append(data_for_accordion);
+              }
+            }else if(storedFilterValue === 'repositories'){
+              for(var index = present_index; index> new_present_index; index--){
+                var collapse_href = 'href="#collapse'+index+'"';
+                var repositiry_name = responseItems[index].name;
+                var data_for_accordion =
+                '<div class="card">'
+                +'<div class="card-heading">'
+                +'<div class="row">'
+                +'<div class="col-md-12">'
+                +'<div class="col-md-8 panel2">'
+                +'<h4 class="card-title">'
+                +'<a data-toggle="collapse"'+collapse_href+'>'
+                +'</a></h4></div></div></div>'
+                +'<div id="collapse'+index+'" class="collapse" data-parent="#accordion">'
+                +'<div class="card-body">'
+                +'<button class="btn btn-primary addsubtask" id="{{todo.id}}" data-toggle="modal" data-target="#add_sub_task_modal">Add Sub-tasks</button>'
+                +'</div>'
+                +'<div class="card-footer" align="end"></div>'
+                +'</div></div><br><br>'
+                $('#accordion').append(data_for_accordion);
+              }
+            }
+            console.log(data_for_accordion);
+            present_index = new_present_index - 1 ;
+            console.log(present_index)
+          }
+
+        });
+        $("#search").click(function(){
+          var flag=1;
+          var query ='';
+          if(document.getElementById("query_text").value != ""){
+            query = document.getElementById("query_text").value;
+          }
+          else{
+            $.alert('Please enter Something In search Bar', 'Invalid Input');
+                flag=0;
+          }
+          if(flag==1){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  var res=JSON.parse(this.responseText);
+                  responseItems = res.items;
+                  console.log(res.items)
+                  if(res.total_count != 0){
+                    $('#results').removeAttr('hidden');
+                    present_index = 0;
+                    new_present_index = 0;
+                    $('#populate_data_next').trigger('click');
+                  }else{
+                    $('#no_results').removeAttr('hidden');
+                  }
+
+                }
+            };
+
+            xhttp.open("GET", "search/"+storedFilterValue+'/'+query, false);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send();
+          }
+        });
+});
+</script>
 
 <div class="container">
 			   {% block codeSearch_content %}{% endblock %}

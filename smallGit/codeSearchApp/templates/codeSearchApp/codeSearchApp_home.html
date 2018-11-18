@@ -3,38 +3,62 @@
   <div class="container">
     <br><br><br><br>
     <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-          <div style="color: #070707; font-family: Gill Sans; margin-left: 150px;">
+        <div class="col-12 col-md-10 col-lg-10">
+          <div style="color: #070707; font-family: Gill Sans; margin-left: 250px;">
             <b><h1>GitHub Code Search</h1></b>
           </div>
           <br><br><br><br>
-              <form class="card card-sm">
+              <div class="card card-sm">
                   <div class="card-body row no-gutters align-items-center">
-                      <div class="col-auto">
-                          <i class="fas fa-search h4 text-body"></i>
+                          <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
                           </div>
                       <!--end of col-->
                           <div class="col">
-                            <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search topics or keywords">
+                            <input class="form-control form-control-lg form-control-borderless" type="search" id="query_text" placeholder="Search topics or keywords">
                           </div>
-                          <div class="dropdown">
+                          <div class="dropdown col">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="width:80%" >
                               <span id="dropdown_text" type= "text"></span>
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                              <li ><a class="dropdown-item">Repositories</a></li>
-                              <li><a class="dropdown-item">Code</a></li>
-                              <li><a class="dropdown-item">User</a></li>
+                              <li ><a class="dropdown-item">repositories</a></li>
+                              <li><a class="dropdown-item">code</a></li>
+                              <li><a class="dropdown-item">users</a></li>
                             </ul>
                           </div>
                           <div class="col-auto">
-                              <button class="btn btn-lg btn-success" type="submit">Search</button>
+                              <button class="btn btn-lg btn-success" id='search'>Search</button>
                           </div>
                          <!--end of col-->
                   </div>
-                </form>
+                </div>
           </div>            <!--end of col-->
+      </div>
+        <br><br><br><br>
+      <hr>
+      <br><br>
+      <div id="no_results" hidden>
+        <div style="color: #070707; font-family: Gill Sans; margin-left: 250px;">
+          <b><h1>No Results to Display</h1></b>
+        </div>
+      </div>
+      <div id="results" hidden>
+        <div class="row">
+          <div style="color: #070707; font-family: Gill Sans; margin-left: 400px;">
+            <b><h1>Search Results</h1></b>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <button class="btn btn-lg btn-primary" id='populate_data_previous' style="margin-left: 300px; padding-left: 2em !important;padding-right: 2em !important;" value="privious"><i class="fas fa-arrow-left fa-2x"></i></button>
+          <button class="btn btn-lg btn-primary" id='populate_data_next' style="margin-left: 300px; padding-left: 2em !important;padding-right: 2em !important;"  value="next"><i class="fas fa-arrow-right fa-2x"></i></button>
+        </div>
+        <br><br>
+        <div id="cover_accordion">
+
+        </div>
       </div>
   </div>
 {% endblock %}
